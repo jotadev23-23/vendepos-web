@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — VendePOS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --ink: #0f0e17; --paper: #fffcf5; --accent: #7c5af0; --muted: #6b6679; --border: #e8e3f0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(255,252,245,.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: 'DM Serif Display', serif; font-size: 22px; letter-spacing: -.5px; text-decoration: none; color: var(--ink); }
+.nav-logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+nav a:hover { color: var(--ink); }
+.nav-links { display: flex; gap: 32px; }
+.privacy-hero { padding: 120px 48px 60px; max-width: 760px; margin: 0 auto; }
+.privacy-hero h1 { font-family: 'DM Serif Display', serif; font-size: 42px; letter-spacing: -1.5px; margin-bottom: 16px; }
+.meta { font-size: 13px; color: var(--muted); margin-bottom: 48px; }
+.privacy-body { max-width: 760px; margin: 0 auto; padding: 0 48px 80px; }
+.privacy-body h2 { font-family: 'DM Serif Display', serif; font-size: 22px; margin: 40px 0 12px; letter-spacing: -.5px; }
+.privacy-body p, .privacy-body li { font-size: 15px; color: #3a3548; line-height: 1.8; margin-bottom: 12px; }
+.privacy-body ul { padding-left: 20px; }
+.privacy-body li { margin-bottom: 8px; }
+.privacy-body a { color: var(--accent); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 100px; font-size: 14px; font-weight: 600; text-decoration: none; border: 1.5px solid var(--border); color: var(--ink); transition: all .2s; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+footer { padding: 48px; text-align: center; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
+footer a { color: var(--accent); text-decoration: none; }
+.footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Vende<span>POS</span></a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="privacy.html">Privacidad</a>
+    <a href="mailto:jotadev23@gmail.com">Contacto</a>
+  </div>
+</nav>
+
+<div class="privacy-hero">
+  <h1>Política de Privacidad</h1>
+  <p class="meta">Última actualización: enero 2025 · VendePOS</p>
+</div>
+
+<div class="privacy-body">
+  <p>Esta Política de Privacidad describe cómo VendePOS ("la aplicación", "nosotros") recopila, usa y protege la información cuando utilizás nuestra aplicación de punto de venta.</p>
+
+  <h2>1. Información que recopilamos</h2>
+  <p>VendePOS es una aplicación de escritorio que funciona localmente en tu computadora. Los datos que manejamos incluyen:</p>
+  <ul>
+    <li>Datos de ventas y transacciones ingresados por el usuario</li>
+    <li>Información de productos, clientes y precios configurados en la app</li>
+    <li>Credenciales de ARCA (CUIT, certificados digitales) para facturación electrónica</li>
+    <li>Token de acceso a Google Drive (solo cuando el usuario activa el backup)</li>
+  </ul>
+
+  <h2>2. Uso de Google Drive</h2>
+  <p>VendePOS puede conectarse a tu cuenta de Google Drive únicamente si vos lo activás en la configuración de backup. Al hacerlo:</p>
+  <ul>
+    <li>La aplicación solicita acceso con el scope <strong>drive.file</strong>, que permite leer y escribir únicamente los archivos que la propia aplicación crea</li>
+    <li>No tenemos acceso a ningún otro archivo de tu Google Drive</li>
+    <li>Los archivos de backup se guardan en una carpeta llamada <strong>VendePOS-Backups</strong> dentro de tu Drive</li>
+    <li>El token de acceso se almacena localmente en tu computadora y nunca se envía a servidores externos</li>
+    <li>Podés desconectar tu cuenta de Google Drive en cualquier momento desde la configuración de la app</li>
+  </ul>
+
+  <h2>3. Almacenamiento de datos</h2>
+  <p>Todos los datos de VendePOS se almacenan localmente en tu dispositivo. No contamos con servidores propios que almacenen tu información. Los únicos datos que salen de tu computadora son:</p>
+  <ul>
+    <li>Las solicitudes de facturación enviadas a ARCA (servicio de AFIP)</li>
+    <li>Los archivos de backup enviados a tu propio Google Drive (si lo activás)</li>
+  </ul>
+
+  <h2>4. Compartir información con terceros</h2>
+  <p>No vendemos, alquilamos ni compartimos tu información personal con terceros. Los únicos servicios externos con los que interactúa VendePOS son:</p>
+  <ul>
+    <li><strong>ARCA (AFIP)</strong>: para la emisión de facturas electrónicas</li>
+    <li><strong>Google Drive API</strong>: para el backup opcional en la nube</li>
+  </ul>
+
+  <h2>5. Seguridad</h2>
+  <p>Los certificados digitales y tokens de acceso se almacenan localmente en tu computadora. Recomendamos mantener el sistema operativo actualizado y no compartir el acceso al equipo con personas no autorizadas.</p>
+
+  <h2>6. Cambios a esta política</h2>
+  <p>Podemos actualizar esta Política de Privacidad ocasionalmente. Te notificaremos sobre cambios significativos a través de la aplicación.</p>
+
+  <h2>7. Contacto</h2>
+  <p>Si tenés preguntas sobre esta política de privacidad, contactanos en: <a href="mailto:jotadev23@gmail.com">jotadev23@gmail.com</a></p>
+
+  <p style="margin-top:48px">
+    <a href="index.html" class="btn">← Volver al inicio</a>
+  </p>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="mailto:jotadev23@gmail.com">Contacto</a>
+  </div>
+  <p>© 2025 VendePOS. Desarrollado por <a href="mailto:jotadev23@gmail.com">jotadev23@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
