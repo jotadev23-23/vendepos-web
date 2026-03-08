@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VendePOS — Sistema de Punto de Venta</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0f0e17;
+  --paper: #fffcf5;
+  --accent: #7c5af0;
+  --accent2: #00c9a7;
+  --muted: #6b6679;
+  --border: #e8e3f0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(255,252,245,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; letter-spacing: -.5px;
+}
+.nav-logo span { color: var(--accent); }
+nav a {
+  color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: color .2s;
+}
+nav a:hover { color: var(--ink); }
+.nav-links { display: flex; gap: 32px; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 120px 48px 80px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,90,240,.08) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,201,167,.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(124,90,240,.08); border: 1px solid rgba(124,90,240,.2);
+  color: var(--accent); border-radius: 100px;
+  padding: 6px 16px; font-size: 13px; font-weight: 500;
+  margin-bottom: 28px;
+}
+.hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(42px, 7vw, 80px);
+  line-height: 1.05; letter-spacing: -2px;
+  margin-bottom: 24px; max-width: 800px; margin-inline: auto;
+}
+h1 em { font-style: italic; color: var(--accent); }
+
+.hero-sub {
+  font-size: 18px; color: var(--muted); max-width: 520px;
+  margin: 0 auto 48px; font-weight: 300; line-height: 1.7;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 100px;
+  font-size: 15px; font-weight: 600; text-decoration: none;
+  transition: all .2s; cursor: pointer; border: none;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+  box-shadow: 0 4px 20px rgba(124,90,240,.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,90,240,.4); }
+.btn-ghost {
+  background: transparent; color: var(--ink);
+  border: 1.5px solid var(--border);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* FEATURES */
+.section { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 4vw, 44px); letter-spacing: -1px;
+  margin-bottom: 56px; max-width: 500px;
+}
+
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+}
+.feature-card {
+  padding: 32px; border-radius: 20px;
+  border: 1px solid var(--border); background: #fff;
+  transition: all .25s;
+}
+.feature-card:hover {
+  border-color: rgba(124,90,240,.3);
+  box-shadow: 0 8px 32px rgba(124,90,240,.08);
+  transform: translateY(-3px);
+}
+.feature-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: rgba(124,90,240,.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 20px;
+}
+.feature-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+.feature-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+/* DIVIDER */
+hr.fancy {
+  border: none; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 48px;
+}
+
+/* FOOTER */
+footer {
+  padding: 48px; text-align: center;
+  font-size: 13px; color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+.footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
+
+/* PRIVACY PAGE */
+.privacy-hero {
+  padding: 120px 48px 60px; max-width: 760px; margin: 0 auto;
+}
+.privacy-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px; letter-spacing: -1.5px; margin-bottom: 16px;
+  text-align: left;
+}
+.privacy-hero .meta { font-size: 13px; color: var(--muted); margin-bottom: 48px; }
+.privacy-body { max-width: 760px; margin: 0 auto; padding: 0 48px 80px; }
+.privacy-body h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; margin: 40px 0 12px; letter-spacing: -.5px;
+}
+.privacy-body p, .privacy-body li {
+  font-size: 15px; color: #3a3548; line-height: 1.8; margin-bottom: 12px;
+}
+.privacy-body ul { padding-left: 20px; }
+.privacy-body li { margin-bottom: 8px; }
+.privacy-body a { color: var(--accent); }
+
+/* Show/hide pages */
+.page { display: none; }
+.page.active { display: block; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Vende<span>POS</span></div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">Inicio</a>
+    <a href="#" onclick="showPage('privacy')">Privacidad</a>
+    <a href="mailto:jotadev23@gmail.com">Contacto</a>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div>
+      <div class="hero-badge">Sistema de Punto de Venta</div>
+      <h1>El POS que tu<br>negocio <em>necesita</em></h1>
+      <p class="hero-sub">VendePOS es un sistema completo de gestión de ventas con facturación electrónica ARCA, backup en Google Drive y mucho más.</p>
+      <div class="hero-btns">
+        <a href="mailto:jotadev23@gmail.com" class="btn btn-primary">🛒 Solicitar demo</a>
+        <a href="#" onclick="showPage('privacy')" class="btn btn-ghost">Política de privacidad</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="fancy">
+
+  <div class="section">
+    <div class="section-label">Funcionalidades</div>
+    <div class="section-title">Todo lo que necesitás en un solo lugar</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🧾</div>
+        <h3>Facturación Electrónica ARCA</h3>
+        <p>Emití facturas A, B y C directamente desde el POS. Integración completa con los servicios web de ARCA.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">☁️</div>
+        <h3>Backup en Google Drive</h3>
+        <p>Tus ventas y datos siempre seguros. Respaldo automático en la nube con tu cuenta de Google.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Reportes y estadísticas</h3>
+        <p>Historial de ventas, ganancias, productos más vendidos y control de caja en tiempo real.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛍️</div>
+        <h3>Gestión de productos</h3>
+        <p>Catálogo con variantes, precios, stock y listas de precios diferenciadas por cliente.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Clientes y empleados</h3>
+        <p>Base de clientes, sistema de puntos, control de acceso por roles y fiado.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖨️</div>
+        <h3>Impresión térmica</h3>
+        <p>Compatible con impresoras térmicas ESC/POS. Tickets y PDF listos para imprimir.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('privacy')">Política de Privacidad</a>
+      <a href="mailto:jotadev23@gmail.com">Contacto</a>
+    </div>
+    <p>© 2025 VendePOS. Desarrollado por <a href="mailto:jotadev23@gmail.com">jotadev23@gmail.com</a></p>
+  </footer>
+
+</div>
+
+<!-- PRIVACY PAGE -->
+<div id="page-privacy" class="page">
+
+  <div class="privacy-hero">
+    <h1>Política de Privacidad</h1>
+    <p class="meta">Última actualización: enero 2025 · VendePOS</p>
+  </div>
+
+  <div class="privacy-body">
+    <p>Esta Política de Privacidad describe cómo VendePOS ("la aplicación", "nosotros") recopila, usa y protege la información cuando utilizás nuestra aplicación de punto de venta.</p>
+
+    <h2>1. Información que recopilamos</h2>
+    <p>VendePOS es una aplicación de escritorio que funciona localmente en tu computadora. Los datos que manejamos incluyen:</p>
+    <ul>
+      <li>Datos de ventas y transacciones ingresados por el usuario</li>
+      <li>Información de productos, clientes y precios configurados en la app</li>
+      <li>Credenciales de ARCA (CUIT, certificados digitales) para facturación electrónica</li>
+      <li>Token de acceso a Google Drive (solo cuando el usuario activa el backup)</li>
+    </ul>
+
+    <h2>2. Uso de Google Drive</h2>
+    <p>VendePOS puede conectarse a tu cuenta de Google Drive únicamente si vos lo activás en la configuración de backup. Al hacerlo:</p>
+    <ul>
+      <li>La aplicación solicita acceso con el scope <strong>drive.file</strong>, que permite leer y escribir únicamente los archivos que la propia aplicación crea</li>
+      <li>No tenemos acceso a ningún otro archivo de tu Google Drive</li>
+      <li>Los archivos de backup se guardan en una carpeta llamada <strong>VendePOS-Backups</strong> dentro de tu Drive</li>
+      <li>El token de acceso se almacena localmente en tu computadora y nunca se envía a servidores externos</li>
+      <li>Podés desconectar tu cuenta de Google Drive en cualquier momento desde la configuración de la app</li>
+    </ul>
+
+    <h2>3. Almacenamiento de datos</h2>
+    <p>Todos los datos de VendePOS se almacenan localmente en tu dispositivo. No contamos con servidores propios que almacenen tu información. Los únicos datos que salen de tu computadora son:</p>
+    <ul>
+      <li>Las solicitudes de facturación enviadas a ARCA (servicio de AFIP)</li>
+      <li>Los archivos de backup enviados a tu propio Google Drive (si lo activás)</li>
+    </ul>
+
+    <h2>4. Compartir información con terceros</h2>
+    <p>No vendemos, alquilamos ni compartimos tu información personal con terceros. Los únicos servicios externos con los que interactúa VendePOS son:</p>
+    <ul>
+      <li><strong>ARCA (AFIP)</strong>: para la emisión de facturas electrónicas</li>
+      <li><strong>Google Drive API</strong>: para el backup opcional en la nube</li>
+    </ul>
+
+    <h2>5. Seguridad</h2>
+    <p>Los certificados digitales y tokens de acceso se almacenan localmente en tu computadora. Recomendamos mantener el sistema operativo actualizado y no compartir el acceso al equipo con personas no autorizadas.</p>
+
+    <h2>6. Cambios a esta política</h2>
+    <p>Podemos actualizar esta Política de Privacidad ocasionalmente. Te notificaremos sobre cambios significativos a través de la aplicación.</p>
+
+    <h2>7. Contacto</h2>
+    <p>Si tenés preguntas sobre esta política de privacidad, contactanos en: <a href="mailto:jotadev23@gmail.com">jotadev23@gmail.com</a></p>
+
+    <p style="margin-top:48px">
+      <a href="#" onclick="showPage('home')" class="btn btn-ghost" style="display:inline-flex">← Volver al inicio</a>
+    </p>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('home')">Inicio</a>
+      <a href="mailto:jotadev23@gmail.com">Contacto</a>
+    </div>
+    <p>© 2025 VendePOS. Desarrollado por <a href="mailto:jotadev23@gmail.com">jotadev23@gmail.com</a></p>
+  </footer>
+
+</div>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+// Handle hash
+if (location.hash === '#privacy') showPage('privacy');
+</script>
+</body>
+</html>
